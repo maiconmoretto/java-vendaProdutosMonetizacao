@@ -1,0 +1,15 @@
+-- Table: clientes
+
+-- DROP TABLE clientes;
+
+CREATE TABLE clientes
+(
+  idcliente serial NOT NULL,
+  nome text,
+  CONSTRAINT idcliente PRIMARY KEY (idcliente)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE clientes
+  OWNER TO postgres;

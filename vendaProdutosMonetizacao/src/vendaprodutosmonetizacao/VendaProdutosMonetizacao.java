@@ -61,8 +61,8 @@ public class VendaProdutosMonetizacao {
 
         Clientes clientes = new Clientes();
 //        
-
-        clientes.cadastrarCliente();
+        clientes.listarClientes();
+//        clientes.cadastrarCliente();
 //        System.out.println("lista de clietes :" + clientes.listarClientes());
 
 //        Cliente cliente = new Cliente();
