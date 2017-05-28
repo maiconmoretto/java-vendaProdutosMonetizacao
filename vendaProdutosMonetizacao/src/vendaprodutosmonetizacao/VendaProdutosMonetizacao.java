@@ -57,14 +57,15 @@ public class VendaProdutosMonetizacao {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        try {
-        Connection connection = Conexao.Conexao();
 
         Clientes clientes = new Clientes();
-//        
-        clientes.listarClientes();
-//        clientes.cadastrarCliente();
-//        System.out.println("lista de clietes :" + clientes.listarClientes());
 
+//        clientes.cadastrarCliente();
+//       clientes.deletarCliente(1);  
+         clientes.editarCliente("aquiles",2);  
+        clientes.listarClientes();
+
+//        System.out.println("lista de clietes :" + clientes.listarClientes());
 //        Cliente cliente = new Cliente();
 //        
 //        System.out.println("lista de clietes :"+ cliente.listaClientes());

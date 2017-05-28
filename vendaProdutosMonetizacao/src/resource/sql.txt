@@ -13,3 +13,7 @@ WITH (
 );
 ALTER TABLE clientes
   OWNER TO postgres;
+
+
+--INSERT 
+INSERT INTO  clientes (nome) VALUES ('maicon123')

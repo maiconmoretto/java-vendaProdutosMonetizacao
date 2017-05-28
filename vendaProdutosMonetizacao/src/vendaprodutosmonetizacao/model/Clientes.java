@@ -25,7 +25,7 @@ public class Clientes {
 
         Connection connection = Conexao.Conexao();
 
-        String sql = "SELECT * FROM  clientes ";
+        String sql = "SELECT * FROM  clientes  ORDER BY idcliente";
         Statement comando = connection.createStatement();
         ResultSet resultado = comando.executeQuery(sql);
 
@@ -37,42 +37,27 @@ public class Clientes {
         while (resultado.next()) {
             Cliente cliente = new Cliente();
             cliente.setNome(resultado.getString("nome_do_cliente"));
-            //Preenche o resto do objeto...
-
             clientes.add(cliente);
         }
         resultado.close();
         return clientes;
     }
 
-    public void  cadastrarCliente() throws ClassNotFoundException, SQLException {
+    public void cadastrarCliente() throws ClassNotFoundException, SQLException {
 
-        Connection connection = Conexao.Conexao();
-        Statement stmt = null;
-        String query = "INSERT INTO  clientes (nome) VALUES ('maicon123')";
-
-        stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-
-//        String sql = "INSERT INTO  clientes (nome) VALUES ('maicon')";
-//        Statement comando = connection.createStatement();
-//        ResultSet resultado = comando.executeQuery(sql);
-        rs.close();
-//        if (resultado) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-   
+        Connection conn = Conexao.Conexao();
+//        Statement stmt = null;
+        String sql = "INSERT INTO  clientes (nome) VALUES ('maicon123')";
+        Statement statement = conn.createStatement();
+        statement.executeUpdate(sql);
     }
 
-    public boolean deletarCliente() throws ClassNotFoundException, SQLException {
+    public boolean deletarCliente(int id) throws ClassNotFoundException, SQLException {
 
-        Connection connection = Conexao.Conexao();
-
-        String sql = "DELETE FROM  clientes WHERE id= ?";
-        Statement comando = connection.createStatement();
-        ResultSet resultado = comando.executeQuery(sql);
+        Connection conn = Conexao.Conexao();
+        String sql = "DELETE FROM  clientes WHERE idcliente= "+id;
+        Statement statement = conn.createStatement();
+        statement.executeUpdate(sql);
         //        if (resultado) {
 //            return true;
 //        } else {
@@ -81,18 +66,13 @@ public class Clientes {
         return true;
     }
 
-    public boolean editarCliente() throws ClassNotFoundException, SQLException {
+    public boolean editarCliente(String nome,int id) throws ClassNotFoundException, SQLException {
 
-        Connection connection = Conexao.Conexao();
+        Connection conn = Conexao.Conexao();
+        String sql = "UPDATE  clientes SET nome = '"+nome+"' WHERE  idcliente = "+id;
+        Statement statement = conn.createStatement();
+        statement.executeUpdate(sql);
 
-        String sql = "UPDATE  clientes SET ";
-        Statement comando = connection.createStatement();
-        ResultSet resultado = comando.executeQuery(sql);
-//        if (resultado) {
-//            return true;
-//        } else {
-//            return false;
-//        }
         return true;
     }
 
