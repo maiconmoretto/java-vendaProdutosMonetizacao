@@ -1,4 +1,4 @@
--- Table: clientes
+﻿-- Table: clientes
 
 -- DROP TABLE clientes;
 
@@ -34,4 +34,8 @@ WITH (
 );
 ALTER TABLE  cliente_conta
   OWNER TO postgres;
+
+
+
+  SELECT * FROM cliente_conta  WHERE numero =  '123'
 

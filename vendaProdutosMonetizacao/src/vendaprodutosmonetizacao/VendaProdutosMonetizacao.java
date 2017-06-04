@@ -1,6 +1,5 @@
 package vendaprodutosmonetizacao;
 
-import com.sun.security.ntlm.Client;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -18,9 +17,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.applet.Main;
 import util.Console;
 import vendaprodutosmonetizacao.Conexao;
+import vendaprodutosmonetizacao.model.ClienteConta;
 import vendaprodutosmonetizacao.model.Clientes;
 
 /**
@@ -59,12 +58,10 @@ public class VendaProdutosMonetizacao {
 //        try {
 
         Clientes clientes = new Clientes();
-
+        ClienteConta conta = new ClienteConta();
 //        clientes.cadastrarCliente();
 //       clientes.deletarCliente(1);  
-         clientes.editarCliente("aquiles",2);  
-        clientes.listarClientes();
-
+//         clientes.editarCliente("aquiles",2);  
 //        System.out.println("lista de clietes :" + clientes.listarClientes());
 //        Cliente cliente = new Cliente();
 //        
@@ -91,13 +88,13 @@ public class VendaProdutosMonetizacao {
 //            System.out.println("Id: " + resultado.getInt("idusuario"));
 //            System.out.println("Nome: " + resultado.getString("nome"));
 //        }
-        System.exit(1);
-
         ArrayList<RelatorioVenda> listarHistorico = new ArrayList<>();
         ArrayList<Cliente> listarClientes = new ArrayList<>();
         ArrayList<Produto> listarProdutos = new ArrayList<>();
         ArrayList<ContaCliente> listarContasClientes = new ArrayList<>();
 
+        String nome, email, cpf;
+        int id, saldo, numero, valor, numeroCreditado, numeroDebitado;
         //inicio loop menu
         int op = 0;
         do {
@@ -105,87 +102,111 @@ public class VendaProdutosMonetizacao {
             System.out.println("\nMenu:");
             System.out.println("1- Novo Cliente");
             System.out.println("2- Todos Clientes");
-            System.out.println("3- Novo conta");
-            System.out.println("4- Todos contas");
-            System.out.println("5- Novo Produto");
-            System.out.println("6- Todos Produtos");
-            System.out.println("7- Saque");
-            System.out.println("8- Deposito");
-            System.out.println("9- Tranferencia");
-            System.out.println("10- Relatório vendas");
-            System.out.println("11- Compra");
-            System.out.println("12- Sair");
+            System.out.println("3- Editar Clientes");
+            System.out.println("4- Excluir Clientes");
+            System.out.println("5- Nova conta");
+            System.out.println("6- Todas contas");
+            System.out.println("7- Saldo ");
+            System.out.println("8- Saque ");
+            System.out.println("9- Tranferencia ");
+            System.out.println("10- Deposito ");
+            
+//            System.out.println("5- Novo Produto");
+//            System.out.println("6- Todos Produtos");
+//            System.out.println("7- Saque");
+//            System.out.println("8- Deposito");
+//            System.out.println("9- Tranferencia");
+//            System.out.println("10- Relatório vendas");
+//            System.out.println("11- Compra");
+//            System.out.println("12- Sair");
             try {
                 op = Console.scanInt("Opcao: ");
 
                 switch (op) {
                     case 1:
                         System.out.println("Cadastro de Clientes");
-//                        Cliente cliente = cadastrarCliente();
-//                        listarClientes.add(cliente);
+                        nome = Console.scanString("nome: ");
+                        email = Console.scanString("email: ");
+                        cpf = Console.scanString("cpf: ");
+                        clientes.cadastrarCliente(nome, email, cpf);
                         break;
                     case 2:
-                        System.out.println("Lista de clientes");
-                        listarClientes(listarClientes);
-                        System.out.println("-------------------\n");
+                        System.out.println("Lista de Clientes");
+                        clientes.listarClientes();
                         break;
                     case 3:
-                        System.out.println("Cadastro de conta");
-                        ContaCliente contaCliente = cadastrarContaCliente();
-                        listarContasClientes.add(contaCliente);
+                        System.out.println("Editar  Clientes");
+                        clientes.listarClientes();
+                        id = Console.scanInt("Id : ");
+                        nome = Console.scanString("nome: ");
+                        email = Console.scanString("email: ");
+                        cpf = Console.scanString("cpf: ");
+                        clientes.editarCliente(nome, email, cpf, id);
                         break;
                     case 4:
-                        System.out.println("Lista de contas");
-                        listarContasClientes(listarContasClientes);
-                        System.out.println("-------------------\n");
+                        System.out.println("Excluir  Clientes");
+                        clientes.listarClientes();
+                        id = Console.scanInt("Id: ");
+                        clientes.deletarCliente(id);
                         break;
                     case 5:
-                        System.out.println("Cadastro de Produtos");
-                        Produto produto = cadastrarProduto();
-                        listarProdutos.add(produto);
+                        System.out.println("Nova conta");
+                        clientes.listarClientes();
+                        id = Console.scanInt("Id : ");
+                        saldo = Console.scanInt("saldo: ");
+                        numero = Console.scanInt("numero: ");
+                        conta.cadastrarConta(id, saldo, numero);
                         break;
                     case 6:
-                        System.out.println("Lista de produtos");
-                        listarProdutos(listarProdutos);
-                        System.out.println("-------------------\n");
+                        System.out.println("Lista  Contas");
+                        conta.listarContas();
                         break;
                     case 7:
-                        System.out.println("Operação de Saque");
-//                        Cliente cliente = new Cliente("01411425022", "maicon moretto dos santos", "maiconmorettos@gmail.com", "01");
-                        listarClientes(listarClientes);
-                        listarContasClientes(listarContasClientes);
-                        saque(listarClientes, listarContasClientes);
-
+                        System.out.println("Operação de Saldo");
+                        numero = Console.scanInt("numero da conta: ");
+                        conta.saldo(numero);
                         break;
                     case 8:
-                        System.out.println("Operação de Deposito");
-                        listarClientes(listarClientes);
-                        listarContasClientes(listarContasClientes);
-                        deposito(listarClientes, listarContasClientes);
-
+                        System.out.println("Operação de Saque");
+                        numero = Console.scanInt("numero da conta: ");
+                        valor = Console.scanInt("valor: ");
+                        conta.saque(valor, numero);
                         break;
                     case 9:
-                        System.out.println("Operação das transferencias");
-                        listarClientes(listarClientes);
-                        listarContasClientes(listarContasClientes);
-                        tranferencia(listarClientes, listarContasClientes);
-                        System.out.println("-------------------\n");
+                        System.out.println("Operação de Transferencia");
+                        numeroDebitado = Console.scanInt("numero da conta do debitado: ");
+                        numeroCreditado = Console.scanInt("numero da conta do creditado: ");
+                        valor = Console.scanInt("valor: ");
+                        conta.tranferencia(valor, numeroCreditado, numeroDebitado);
                         break;
                     case 10:
-                        System.out.println("Relatório das vendas");
-                        listarClientes(listarClientes);
-                        listarProdutos(listarProdutos);
-                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
-                        System.out.println("-------------------\n");
+                        System.out.println("Operação de Deposito");
+                        numero = Console.scanInt("numero da conta: ");
+                         valor = Console.scanInt("valor: ");
+                        conta.deposito(valor, numero);
                         break;
-                    case 11:
-                        System.out.println("Operação de compra");
-                        listarClientes(listarClientes);
-                        listarProdutos(listarProdutos);
-                        listarContasClientes(listarContasClientes);
-                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
-                        compra(listarProdutos, listarContasClientes, listarHistorico);
-                        break;
+//                    case 9:
+//                        System.out.println("Operação das transferencias");
+//                        listarClientes(listarClientes);
+//                        listarContasClientes(listarContasClientes);
+//                        tranferencia(listarClientes, listarContasClientes);
+//                        System.out.println("-------------------\n");
+//                        break;
+//                    case 10:
+//                        System.out.println("Relatório das vendas");
+//                        listarClientes(listarClientes);
+//                        listarProdutos(listarProdutos);
+//                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
+//                        System.out.println("-------------------\n");
+//                        break;
+//                    case 11:
+//                        System.out.println("Operação de compra");
+//                        listarClientes(listarClientes);
+//                        listarProdutos(listarProdutos);
+//                        listarContasClientes(listarContasClientes);
+//                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
+//                        compra(listarProdutos, listarContasClientes, listarHistorico);
+//                        break;
                     case 12:
                         System.out.println("Finalizando a aplicacao");
                         break;
@@ -247,12 +268,11 @@ public class VendaProdutosMonetizacao {
         }
     }
 
-    private static ContaCliente cadastrarContaCliente() {
-        String conta = Console.scanString("conta: ");
-        int valor = Console.scanInt("valor :");
-        return new ContaCliente(conta, valor);
-    }
-
+//    private static ContaCliente cadastrarContaCliente() {
+//        String conta = Console.scanString("conta: ");
+//        int valor = Console.scanInt("valor :");
+//        return new ContaCliente(conta, valor);
+//    }
     private static void listarContasClientes(ArrayList<ContaCliente> listarContas) {
         if (listarContas.isEmpty()) {
             System.out.println("Nenhum conta cadastrada!");
@@ -280,167 +300,164 @@ public class VendaProdutosMonetizacao {
         }
     }
 
-    private static void saque(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
-        int saldoAnterior = 0;
-        int cont = 0;
-        String conta = Console.scanString("conta: ");
-        if (listarClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado!");
-        } else {
-            for (Cliente c : listarClientes) {
-                String contac = c.getConta();
-                if (contac.equals(conta)) {
-                    int valorSaque = Console.scanInt("valor saque: ");
-                    for (ContaCliente contaClinte : listarContas) {
-                        System.out.println("\n numero da conta = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
-                        saldoAnterior = contaClinte.getValor();
-                        System.out.println("\nsaldo anterior " + saldoAnterior);
-                    }
-                    int saque = saldoAnterior - valorSaque;
-                    System.out.println("saldo subtraido  ao valor " + saque);
-                    ContaCliente contaCliente = new ContaCliente(contac, saque);
-                    System.out.println("\n -------------------------\nresultado do saque:\n");
-                    if (contaCliente.Saque(saque, saldoAnterior) == true) {
-                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saque);
-                        listarContas.set(cont, contaClienteAtualizada);
-                        System.out.println("suesso ao executar o saque de " + valorSaque + " na conta " + conta + "\n saldo atual = " + saque);
-                    } else {
-                        System.out.println("ocorreu um erro  ao realizar o saque, valor nao pode ser " + valorSaque);
-                    }
-                }
-                cont++;
-            }
-        }
-
-    }
-
-    private static void deposito(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
-        int saldoAnterior = 0;
-        int cont = 0;
-        String conta = Console.scanString("conta: ");
-        if (listarClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado!");
-        } else {
-            for (Cliente c : listarClientes) {
-                String contac = c.getConta();
-                if (contac.equals(conta)) {
-                    int valorDeposito = Console.scanInt("valor deposito: ");
-                    for (ContaCliente contaClinte : listarContas) {
-                        System.out.println("\n numero da conta = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
-                        saldoAnterior = contaClinte.getValor();
-                        System.out.println("\nsaldo anterior " + saldoAnterior);
-                    }
-                    int saldo = valorDeposito + saldoAnterior;
-                    System.out.println("saldo somado ao valor " + saldo);
-                    ContaCliente contaCliente = new ContaCliente(contac, saldo);
-                    System.out.println("\n -------------------------\nresultado do desposito:\n");
-                    if (contaCliente.Deposito(saldo) == true) {
-                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saldo);
-                        listarContas.set(cont, contaClienteAtualizada);
-                        System.out.println("suesso ao executar o deposito de " + valorDeposito + " na conta " + conta + "\n saldo atual = " + saldo);
-                    } else {
-                        System.out.println("ocorreu um erro  ao realizar o deposito, valor nao pode ser " + valorDeposito);
-                    }
-                }
-                cont++;
-            }
-        }
-
-    }
-
-    private static void tranferencia(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
-        int saldoAnterior = 0;
-        int cont = 0;
-        String contaSol = Console.scanString("conta  solicitante: ");
-        String contaDest = Console.scanString("conta  destinatario: ");
-        int valor = Console.scanInt("valor: ");
-        if (listarClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado!");
-        } else {
-            for (Cliente c : listarClientes) {
-                String contac = c.getConta();
-                if (contac.equals(contaSol)) {
-
-                    for (ContaCliente contaClinte : listarContas) {
-                        System.out.println("\n numero da conta  sol = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
-                        saldoAnterior = contaClinte.getValor();
-                        System.out.println("\nsaldo anterior " + saldoAnterior);
-                    }
-                    int saldo = saldoAnterior - valor;
-                    System.out.println("saldo diminuido ao valor " + saldo);
-                    ContaCliente contaCliente = new ContaCliente(contac, saldo);
-                    if (saldo >= 0) {
-                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saldo);
-                        listarContas.set(cont, contaClienteAtualizada);
-                        System.out.println("suesso ao executar a tranfereincia de " + valor + " na conta " + contaSol + " para a conta  = " + contaDest);
-                    } else {
-                        System.out.println("ocorreu um erro  atranfereincia");
-                    }
-                }
-
-                String contacs = c.getConta();
-                if (contacs.equals(contaDest)) {
-                    for (ContaCliente contaClinte : listarContas) {
-                        System.out.println("\n numero da conta dest = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
-                        saldoAnterior = contaClinte.getValor();
-                        System.out.println("\nsaldo anterior " + saldoAnterior);
-                    }
-                    int saldo = saldoAnterior + valor;
-                    System.out.println("saldo somado ao valor " + saldo);
-                    ContaCliente contaCliente = new ContaCliente(contacs, saldo);
-                    ContaCliente contaClienteAtualizada = new ContaCliente(contacs, saldo);
-                    listarContas.set(cont, contaClienteAtualizada);
-
-                }
-                cont++;
-            }
-        }
-
-    }
-
-    private static void compra(ArrayList<Produto> listarProdutos, ArrayList<ContaCliente> listarContas, ArrayList<RelatorioVenda> listarHistorico) {
-        int saldoAnterior = 0;
-        int cont = 0;
-        if (listarProdutos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado!");
-        } else if (listarContas.isEmpty()) {
-            System.out.println("Nenhuma conta cadastrada!");
-        } else {
-            String conta = Console.scanString("\nconta: ");
-            String codigoProduto = Console.scanString("\ncodigo do Produto: ");
-            int contaProd = 0;
-            for (Produto p : listarProdutos) {
-                if (p.getCodigo().equals(codigoProduto)) {
-                    if (p.getCodigo().equals(codigoProduto)) {
-                        for (ContaCliente c : listarContas) {
-                            String contac = c.getConta();
-                            int saldo = c.getValor();
-                            if (contac.equals(conta)) {
-                                int preco = p.getPreço();
-                                Venda venda = new Venda(conta, codigoProduto);
-                                System.out.println("\n -------------------------\n resultado da venda:\n");
-                                if (venda.operacaoVenda(preco, saldo) == true) {
-                                    System.out.println("suesso ao executar o venda");
-                                    RelatorioVenda relatorioVenda = cadastrarHistorico(codigoProduto, conta);
-                                    listarHistorico.add(relatorioVenda);
-                                    int restante = saldo - preco;
-                                    ContaCliente contaCliente = new ContaCliente(conta, restante);
-                                    if (contaCliente.Saque(preco, restante) == true) {
-                                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, restante);
-                                        listarContas.set(cont, contaClienteAtualizada);
-                                        System.out.println("sucesso ao debitar da conta do cliente");
-                                    }
-                                } else {
-                                    System.out.println("ocorreu um erro  a venda");
-                                }
-                            }
-                        }
-                    }
-                }
-                contaProd++;
-            }
-            listarProdutos.remove(contaProd - 1);
-            System.out.println("sucesso ao remover o produto ");
-        }
-    }
+//    private static void saque(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
+//        int saldoAnterior = 0;
+//        int cont = 0;
+//        String conta = Console.scanString("conta: ");
+//        if (listarClientes.isEmpty()) {
+//            System.out.println("Nenhum cliente cadastrado!");
+//        } else {
+//            for (Cliente c : listarClientes) {
+//                String contac = c.getConta();
+//                if (contac.equals(conta)) {
+//                    int valorSaque = Console.scanInt("valor saque: ");
+//                    for (ContaCliente contaClinte : listarContas) {
+//                        System.out.println("\n numero da conta = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
+//                        saldoAnterior = contaClinte.getValor();
+//                        System.out.println("\nsaldo anterior " + saldoAnterior);
+//                    }
+//                    int saque = saldoAnterior - valorSaque;
+//                    System.out.println("saldo subtraido  ao valor " + saque);
+//                    ContaCliente contaCliente = new ContaCliente(contac, saque);
+//                    System.out.println("\n -------------------------\nresultado do saque:\n");
+//                    if (contaCliente.Saque(saque, saldoAnterior) == true) {
+//                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saque);
+//                        listarContas.set(cont, contaClienteAtualizada);
+//                        System.out.println("suesso ao executar o saque de " + valorSaque + " na conta " + conta + "\n saldo atual = " + saque);
+//                    } else {
+//                        System.out.println("ocorreu um erro  ao realizar o saque, valor nao pode ser " + valorSaque);
+//                    }
+//                }
+//                cont++;
+//            }
+//        }
+//
+//    }
+//    private static void deposito(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
+//        int saldoAnterior = 0;
+//        int cont = 0;
+//        String conta = Console.scanString("conta: ");
+//        if (listarClientes.isEmpty()) {
+//            System.out.println("Nenhum cliente cadastrado!");
+//        } else {
+//            for (Cliente c : listarClientes) {
+//                String contac = c.getConta();
+//                if (contac.equals(conta)) {
+//                    int valorDeposito = Console.scanInt("valor deposito: ");
+//                    for (ContaCliente contaClinte : listarContas) {
+//                        System.out.println("\n numero da conta = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
+//                        saldoAnterior = contaClinte.getValor();
+//                        System.out.println("\nsaldo anterior " + saldoAnterior);
+//                    }
+//                    int saldo = valorDeposito + saldoAnterior;
+//                    System.out.println("saldo somado ao valor " + saldo);
+//                    ContaCliente contaCliente = new ContaCliente(contac, saldo);
+//                    System.out.println("\n -------------------------\nresultado do desposito:\n");
+//                    if (contaCliente.Deposito(saldo) == true) {
+//                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saldo);
+//                        listarContas.set(cont, contaClienteAtualizada);
+//                        System.out.println("suesso ao executar o deposito de " + valorDeposito + " na conta " + conta + "\n saldo atual = " + saldo);
+//                    } else {
+//                        System.out.println("ocorreu um erro  ao realizar o deposito, valor nao pode ser " + valorDeposito);
+//                    }
+//                }
+//                cont++;
+//            }
+//        }
+//
+//    }
+//    private static void tranferencia(ArrayList<Cliente> listarClientes, ArrayList<ContaCliente> listarContas) {
+//        int saldoAnterior = 0;
+//        int cont = 0;
+//        String contaSol = Console.scanString("conta  solicitante: ");
+//        String contaDest = Console.scanString("conta  destinatario: ");
+//        int valor = Console.scanInt("valor: ");
+//        if (listarClientes.isEmpty()) {
+//            System.out.println("Nenhum cliente cadastrado!");
+//        } else {
+//            for (Cliente c : listarClientes) {
+//                String contac = c.getConta();
+//                if (contac.equals(contaSol)) {
+//
+//                    for (ContaCliente contaClinte : listarContas) {
+//                        System.out.println("\n numero da conta  sol = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
+//                        saldoAnterior = contaClinte.getValor();
+//                        System.out.println("\nsaldo anterior " + saldoAnterior);
+//                    }
+//                    int saldo = saldoAnterior - valor;
+//                    System.out.println("saldo diminuido ao valor " + saldo);
+//                    ContaCliente contaCliente = new ContaCliente(contac, saldo);
+//                    if (saldo >= 0) {
+//                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, saldo);
+//                        listarContas.set(cont, contaClienteAtualizada);
+//                        System.out.println("suesso ao executar a tranfereincia de " + valor + " na conta " + contaSol + " para a conta  = " + contaDest);
+//                    } else {
+//                        System.out.println("ocorreu um erro  atranfereincia");
+//                    }
+//                }
+//
+//                String contacs = c.getConta();
+//                if (contacs.equals(contaDest)) {
+//                    for (ContaCliente contaClinte : listarContas) {
+//                        System.out.println("\n numero da conta dest = " + contaClinte.getConta() + " , saldo " + contaClinte.getSaldo());
+//                        saldoAnterior = contaClinte.getValor();
+//                        System.out.println("\nsaldo anterior " + saldoAnterior);
+//                    }
+//                    int saldo = saldoAnterior + valor;
+//                    System.out.println("saldo somado ao valor " + saldo);
+//                    ContaCliente contaCliente = new ContaCliente(contacs, saldo);
+//                    ContaCliente contaClienteAtualizada = new ContaCliente(contacs, saldo);
+//                    listarContas.set(cont, contaClienteAtualizada);
+//
+//                }
+//                cont++;
+//            }
+//        }
+//
+//    }
+//    private static void compra(ArrayList<Produto> listarProdutos, ArrayList<ContaCliente> listarContas, ArrayList<RelatorioVenda> listarHistorico) {
+//        int saldoAnterior = 0;
+//        int cont = 0;
+//        if (listarProdutos.isEmpty()) {
+//            System.out.println("Nenhum produto cadastrado!");
+//        } else if (listarContas.isEmpty()) {
+//            System.out.println("Nenhuma conta cadastrada!");
+//        } else {
+//            String conta = Console.scanString("\nconta: ");
+//            String codigoProduto = Console.scanString("\ncodigo do Produto: ");
+//            int contaProd = 0;
+//            for (Produto p : listarProdutos) {
+//                if (p.getCodigo().equals(codigoProduto)) {
+//                    if (p.getCodigo().equals(codigoProduto)) {
+//                        for (ContaCliente c : listarContas) {
+//                            String contac = c.getConta();
+//                            int saldo = c.getValor();
+//                            if (contac.equals(conta)) {
+//                                int preco = p.getPreço();
+//                                Venda venda = new Venda(conta, codigoProduto);
+//                                System.out.println("\n -------------------------\n resultado da venda:\n");
+//                                if (venda.operacaoVenda(preco, saldo) == true) {
+//                                    System.out.println("suesso ao executar o venda");
+//                                    RelatorioVenda relatorioVenda = cadastrarHistorico(codigoProduto, conta);
+//                                    listarHistorico.add(relatorioVenda);
+//                                    int restante = saldo - preco;
+//                                    ContaCliente contaCliente = new ContaCliente(conta, restante);
+//                                    if (contaCliente.Saque(preco, restante) == true) {
+//                                        ContaCliente contaClienteAtualizada = new ContaCliente(contac, restante);
+//                                        listarContas.set(cont, contaClienteAtualizada);
+//                                        System.out.println("sucesso ao debitar da conta do cliente");
+//                                    }
+//                                } else {
+//                                    System.out.println("ocorreu um erro  a venda");
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                contaProd++;
+//            }
+//            listarProdutos.remove(contaProd - 1);
+//            System.out.println("sucesso ao remover o produto ");
+//        }
+//    }
 }

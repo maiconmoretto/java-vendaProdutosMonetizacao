@@ -16,13 +16,13 @@ public class ContaCliente {
     private int saldo;
     private String conta;
 
-    public ContaCliente(String conta, int valor) {
-
-        this.conta = conta;
-        this.valor = valor;
-
-
-    }
+//    public ContaCliente(String conta, int valor) {
+//
+//        this.conta = conta;
+//        this.valor = valor;
+//
+//
+//    }
 
     public String getConta() {
         return conta;
