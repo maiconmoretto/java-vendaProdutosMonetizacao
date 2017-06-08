@@ -117,15 +117,26 @@ public class ClienteConta {
 
         if (resultado.next()) {
             int saldoAtual = resultado.getInt("saldo");
-
+//debitado tem saldo
             if (saldoAtual >= valor) {
                 int diferenca = saldoAtual - valor;
-                sql = "UPDATE cliente_conta SET saldo = " + diferenca + " WHERE numero  = '" + numeroCreditado + "' ";
+                //debita da conta do debitado tem saldo
+                sql = "UPDATE cliente_conta SET saldo = " + diferenca + " WHERE numero  = '" + numeroDebitado + "' ";
                 statement.executeUpdate(sql);
                 System.out.println("debitado valor com sucesso");
-                sql = "UPDATE cliente_conta SET saldo = " + valor + " WHERE numero  = '" + numeroDebitado + "' ";
-                statement.executeUpdate(sql);
-                System.out.println("creditado valor com sucesso");
+ //busca saldo do creditado
+                sql = "SELECT saldo FROM cliente_conta  WHERE numero  = '" + numeroCreditado + "' ";
+                statement = conn.createStatement();
+                resultado = statement.executeQuery(sql);
+                if (resultado.next()) {
+                    saldoAtual = resultado.getInt("saldo");
+                    diferenca = saldoAtual + valor;
+//                    System.out.println("saldo atual ="+saldoAtual + ", valor a ser creditado");
+                    //deposita na conta do debitado 
+                    sql = "UPDATE cliente_conta SET saldo = " + diferenca + " WHERE numero  = '" + numeroCreditado + "' ";
+                    statement.executeUpdate(sql);
+                    System.out.println("creditado valor com sucesso");
+                }
             } else {
                 System.out.println("transferencia  nao foi realizada, saldo insuficiente");
             }

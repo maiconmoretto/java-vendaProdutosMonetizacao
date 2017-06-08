@@ -59,35 +59,7 @@ public class VendaProdutosMonetizacao {
 
         Clientes clientes = new Clientes();
         ClienteConta conta = new ClienteConta();
-//        clientes.cadastrarCliente();
-//       clientes.deletarCliente(1);  
-//         clientes.editarCliente("aquiles",2);  
-//        System.out.println("lista de clietes :" + clientes.listarClientes());
-//        Cliente cliente = new Cliente();
-//        
-//        System.out.println("lista de clietes :"+ cliente.listaClientes());
-//        // cria um preparedStatement
-//        String insert = "INSERT INTO  usuarios (nome) values (?)";
-//        PreparedStatement stmt = connection.prepareStatement(insert);
-//
-//        // preenche os valores
-//        stmt.setString(1, "Joao");
-//        stmt.execute();
-//
-////        String update = "UPDATE   usuarios SET nome = ? WHERE idusuario = ?";
-////         connection.executeQuery(update);
-//        // preenche os valores
-//        stmt.setString(1, "Joao");
-//        stmt.execute();
-//
-//        String sql = "SELECT * FROM  usuarios ";
-//        Statement comando = connection.createStatement();
-//        ResultSet resultado = comando.executeQuery(sql);
-//
-//        while (resultado.next()) {
-//            System.out.println("Id: " + resultado.getInt("idusuario"));
-//            System.out.println("Nome: " + resultado.getString("nome"));
-//        }
+
         ArrayList<RelatorioVenda> listarHistorico = new ArrayList<>();
         ArrayList<Cliente> listarClientes = new ArrayList<>();
         ArrayList<Produto> listarProdutos = new ArrayList<>();
@@ -185,28 +157,7 @@ public class VendaProdutosMonetizacao {
                          valor = Console.scanInt("valor: ");
                         conta.deposito(valor, numero);
                         break;
-//                    case 9:
-//                        System.out.println("Operação das transferencias");
-//                        listarClientes(listarClientes);
-//                        listarContasClientes(listarContasClientes);
-//                        tranferencia(listarClientes, listarContasClientes);
-//                        System.out.println("-------------------\n");
-//                        break;
-//                    case 10:
-//                        System.out.println("Relatório das vendas");
-//                        listarClientes(listarClientes);
-//                        listarProdutos(listarProdutos);
-//                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
-//                        System.out.println("-------------------\n");
-//                        break;
-//                    case 11:
-//                        System.out.println("Operação de compra");
-//                        listarClientes(listarClientes);
-//                        listarProdutos(listarProdutos);
-//                        listarContasClientes(listarContasClientes);
-//                        listarHistorico(listarHistorico, listarClientes, listarProdutos);
-//                        compra(listarProdutos, listarContasClientes, listarHistorico);
-//                        break;
+
                     case 12:
                         System.out.println("Finalizando a aplicacao");
                         break;
