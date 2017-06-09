@@ -1,26 +1,12 @@
 package vendaprodutosmonetizacao;
 
-import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.Console;
-import vendaprodutosmonetizacao.Conexao;
 import vendaprodutosmonetizacao.model.ClienteConta;
 import vendaprodutosmonetizacao.model.Clientes;
+import vendaprodutosmonetizacao.model.Produtos;
+import vendaprodutosmonetizacao.model.Vendas;
 
 /**
  *
@@ -59,12 +45,8 @@ public class VendaProdutosMonetizacao {
 
         Clientes clientes = new Clientes();
         ClienteConta conta = new ClienteConta();
-
-        ArrayList<RelatorioVenda> listarHistorico = new ArrayList<>();
-        ArrayList<Cliente> listarClientes = new ArrayList<>();
-        ArrayList<Produto> listarProdutos = new ArrayList<>();
-        ArrayList<ContaCliente> listarContasClientes = new ArrayList<>();
-
+        Produtos produtos = new Produtos();
+        Vendas vendas = new Vendas();
         String nome, email, cpf;
         int id, saldo, numero, valor, numeroCreditado, numeroDebitado;
         //inicio loop menu
@@ -74,16 +56,21 @@ public class VendaProdutosMonetizacao {
             System.out.println("\nMenu:");
             System.out.println("1- Novo Cliente");
             System.out.println("2- Todos Clientes");
-            System.out.println("3- Editar Clientes");
-            System.out.println("4- Excluir Clientes");
+            System.out.println("3- Editar Cliente");
+            System.out.println("4- Excluir Cliente");
             System.out.println("5- Nova conta");
             System.out.println("6- Todas contas");
             System.out.println("7- Saldo ");
             System.out.println("8- Saque ");
             System.out.println("9- Tranferencia ");
             System.out.println("10- Deposito ");
-            System.out.println("11- Sairs ");
-
+            System.out.println("11- Novo Produto");
+            System.out.println("12- Todos Produtos");
+            System.out.println("13- Editar Produto");
+            System.out.println("14- Excluir Produto");
+            System.out.println("15- Venda");
+            System.out.println("16- Histórico vendas");
+            System.out.println("17- Sair ");
             try {
                 op = Console.scanInt("Opcao: ");
 
@@ -150,8 +137,46 @@ public class VendaProdutosMonetizacao {
                         valor = Console.scanInt("valor: ");
                         conta.deposito(valor, numero);
                         break;
-
                     case 11:
+                        System.out.println("Cadastro de Produto");
+                        nome = Console.scanString("nome: ");
+                        valor = Console.scanInt("valor: ");
+                        produtos.cadastrarProduto(nome, valor);
+                        break;
+                    case 12:
+                        System.out.println("Lista de Produtos");
+                        produtos.listarProdutos();
+                        break;
+                    case 13:
+                        System.out.println("Editar  Produto");
+                        produtos.listarProdutos();
+                        id = Console.scanInt("Id : ");
+                        nome = Console.scanString("nome: ");
+                        valor = Console.scanInt("valor: ");
+                        produtos.editarProduto(nome, valor, id);
+                        break;
+                    case 14:
+                        System.out.println("Excluir  Produto");
+                        produtos.listarProdutos();
+                        id = Console.scanInt("Id: ");
+                        produtos.deletarProduto(id);
+                        break;
+                    case 15:
+                        System.out.println("Venda");
+                        System.out.println("\n ===========  \n Produtos ");
+                        produtos.listarProdutos();
+                        System.out.println("\n =========== \n Clientes ");
+                        clientes.listarClientes();
+                        id = Console.scanInt("Id do produto: ");
+                        numero = Console.scanInt("numero da  conta: ");
+                        vendas.venda( numero, id);
+                        break;
+                    case 16:
+                        System.out.println("Histórico Vendas");
+                        vendas.listarVendas();
+                        break;
+
+                    case 17:
                         System.out.println("Finalizando a aplicacao");
                         break;
                     default:

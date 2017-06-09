@@ -6,15 +6,12 @@
 package vendaprodutosmonetizacao.model;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import vendaprodutosmonetizacao.Cliente;
 import vendaprodutosmonetizacao.Conexao;
-import vendaprodutosmonetizacao.ContaCliente;
+
 
 /**
  *
@@ -22,7 +19,7 @@ import vendaprodutosmonetizacao.ContaCliente;
  */
 public class ClienteConta {
 
-    public List<ContaCliente> listarContas() throws ClassNotFoundException, SQLException {
+    public void listarContas() throws ClassNotFoundException, SQLException {
 
         Connection connection = Conexao.Conexao();
 
@@ -36,15 +33,7 @@ public class ClienteConta {
             System.out.println("numero: " + resultado.getInt("numero"));
             System.out.println("data cadastro: " + resultado.getDate("data_cadastro"));
         }
-        List<ContaCliente> contas = new ArrayList<ContaCliente>();
-        while (resultado.next()) {
-            ContaCliente conta = new ContaCliente();
-            conta.setConta(resultado.getString("numero"));
-            conta.setSaldo(resultado.getInt("saldo"));
-            contas.add(conta);
-        }
-        resultado.close();
-        return contas;
+
     }
 
     public void cadastrarConta(int idcliente, int saldo, int numero) throws ClassNotFoundException, SQLException {
@@ -69,6 +58,8 @@ public class ClienteConta {
             sql = "UPDATE cliente_conta SET saldo = " + total + " WHERE numero  = '" + numero + "' ";
             statement.executeUpdate(sql);
             System.out.println("deposito  realizado com sucesso");
+        } else {
+            System.out.println("Nao existe este numero de  conta : " + numero);
         }
 
     }
@@ -92,6 +83,8 @@ public class ClienteConta {
             } else {
                 System.out.println("saque  nao foi realizado, saldo insuficiente");
             }
+        } else {
+            System.out.println("Nao existe este numero de  conta : " + numero);
         }
 
     }
@@ -124,7 +117,7 @@ public class ClienteConta {
                 sql = "UPDATE cliente_conta SET saldo = " + diferenca + " WHERE numero  = '" + numeroDebitado + "' ";
                 statement.executeUpdate(sql);
                 System.out.println("debitado valor com sucesso");
- //busca saldo do creditado
+                //busca saldo do creditado
                 sql = "SELECT saldo FROM cliente_conta  WHERE numero  = '" + numeroCreditado + "' ";
                 statement = conn.createStatement();
                 resultado = statement.executeQuery(sql);
@@ -136,10 +129,14 @@ public class ClienteConta {
                     sql = "UPDATE cliente_conta SET saldo = " + diferenca + " WHERE numero  = '" + numeroCreditado + "' ";
                     statement.executeUpdate(sql);
                     System.out.println("creditado valor com sucesso");
+                } else {
+                    System.out.println("Nao existe este numero de  conta : " + numeroCreditado);
                 }
             } else {
                 System.out.println("transferencia  nao foi realizada, saldo insuficiente");
             }
+        } else {
+            System.out.println("Nao existe este numero de  conta  : " + numeroDebitado);
         }
 
     }
