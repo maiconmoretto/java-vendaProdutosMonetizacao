@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.control.TextField;
 import vendaprodutosmonetizacao.Conexao;
 
 /**
@@ -24,16 +25,15 @@ public class Clientes {
         String sql = "SELECT * FROM  clientes  ORDER BY idcliente";
         Statement comando = connection.createStatement();
         ResultSet resultado = comando.executeQuery(sql);
-   
-            while (resultado.next()) {
-                System.out.println("\nId: " + resultado.getInt("idcliente"));
-                System.out.println("Nome: " + resultado.getString("nome"));
-                System.out.println("email: " + resultado.getString("email"));
-                System.out.println("cpf: " + resultado.getString("cpf"));
-                System.out.println("data cadastro: " + resultado.getDate("data_cadastro"));
-            }
 
- 
+        while (resultado.next()) {
+            System.out.println("\nId: " + resultado.getInt("idcliente"));
+            System.out.println("Nome: " + resultado.getString("nome"));
+            System.out.println("email: " + resultado.getString("email"));
+            System.out.println("cpf: " + resultado.getString("cpf"));
+            System.out.println("data cadastro: " + resultado.getDate("data_cadastro"));
+        }
+
     }
 
     public void cadastrarCliente(String nome, String email, String cpf) throws ClassNotFoundException, SQLException {
@@ -60,6 +60,15 @@ public class Clientes {
         Statement statement = conn.createStatement();
         statement.executeUpdate(sql);
         return true;
+    }
+
+    public void cadastrarCliente(TextField textFieldNome, TextField textFieldEmail, TextField textFieldCpf) throws ClassNotFoundException, SQLException {
+
+        Connection conn = Conexao.Conexao();
+        String sql = "INSERT INTO  clientes (nome,email,cpf) VALUES ('" + textFieldNome + "', '" + textFieldEmail + "','" + textFieldCpf + "')";
+        Statement statement = conn.createStatement();
+        statement.executeUpdate(sql);
+
     }
 
 }

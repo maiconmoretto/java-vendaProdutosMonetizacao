@@ -1,4 +1,4 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" fx:id="painelFormularioCliente" prefHeight="268.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vendaprodutosmonetizacao.PainelFormularioClienteController">
+
     <children>
+
         <GridPane layoutX="83.0" layoutY="81.0" prefHeight="90.0" prefWidth="256.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="103.0" />
@@ -34,4 +36,7 @@
             </children>
         </Group>
     </children>
-</AnchorPane>-->
+</AnchorPane>
+
+
+
