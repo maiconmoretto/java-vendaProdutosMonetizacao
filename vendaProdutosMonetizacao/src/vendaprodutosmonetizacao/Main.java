@@ -26,45 +26,25 @@ public class Main extends Application {
         root.setTop(menuBar);
 
         // File menu - new, save, exit
-        Menu fileMenu = new Menu("Clientes");
-        MenuItem newMenuItem = new MenuItem("Cadastro");
-        MenuItem saveMenuItem = new MenuItem("Editar");
-        MenuItem exitMenuItem = new MenuItem("Excluir");
-        exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+        Menu cliente = new Menu("Clientes");
+        MenuItem cadastro = new MenuItem("Cadastro");
+        MenuItem editar = new MenuItem("Editar");
+        MenuItem excluir = new MenuItem("Excluir");
+//        sair.setOnAction(actionEvent -> Platform.exit());
 
-        fileMenu.getItems().addAll(newMenuItem, saveMenuItem,
-                exitMenuItem);
+        cliente.getItems().addAll(cadastro, editar,
+                excluir);
 
-        Menu webMenu = new Menu("Web");
-        CheckMenuItem htmlMenuItem = new CheckMenuItem("HTML");
-        htmlMenuItem.setSelected(true);
-        webMenu.getItems().add(htmlMenuItem);
+        Menu produto = new Menu("Produtos");
+        MenuItem cadastroP = new MenuItem("Cadastro");
+        MenuItem editarP = new MenuItem("Editar");
+        MenuItem excluirP = new MenuItem("Excluir");
+        produto.getItems().addAll(cadastroP, editarP,
+                excluirP);
 
-        CheckMenuItem cssMenuItem = new CheckMenuItem("CSS");
-        cssMenuItem.setSelected(true);
-        webMenu.getItems().add(cssMenuItem);
+  
 
-        Menu sqlMenu = new Menu("SQL");
-        ToggleGroup tGroup = new ToggleGroup();
-        RadioMenuItem mysqlItem = new RadioMenuItem("MySQL");
-        mysqlItem.setToggleGroup(tGroup);
-
-        RadioMenuItem oracleItem = new RadioMenuItem("Oracle");
-        oracleItem.setToggleGroup(tGroup);
-        oracleItem.setSelected(true);
-
-        sqlMenu.getItems().addAll(mysqlItem, oracleItem,
-                new SeparatorMenuItem());
-
-        Menu tutorialManeu = new Menu("Tutorial");
-        tutorialManeu.getItems().addAll(
-                new CheckMenuItem("Java"),
-                new CheckMenuItem("JavaFX"),
-                new CheckMenuItem("Swing"));
-
-        sqlMenu.getItems().add(tutorialManeu);
-
-        menuBar.getMenus().addAll(fileMenu, webMenu, sqlMenu);
+        menuBar.getMenus().addAll(cliente, produto);
 
         primaryStage.setScene(scene);
         primaryStage.show();

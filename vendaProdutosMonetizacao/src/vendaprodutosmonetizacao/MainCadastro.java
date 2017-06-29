@@ -1,6 +1,5 @@
 package vendaprodutosmonetizacao;
 
-
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +12,18 @@ import javafx.stage.Stage;
  * @author lhries
  */
 public class MainCadastro extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("PainelFormularioCliente.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("PainelFormularioCliente.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("PainelFormularioProduto.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
