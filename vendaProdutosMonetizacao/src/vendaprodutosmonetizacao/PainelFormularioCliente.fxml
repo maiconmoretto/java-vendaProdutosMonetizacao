@@ -35,6 +35,10 @@
                 <Button layoutX="218.0" layoutY="208.0" mnemonicParsing="false" onAction="#tratarBotaoSalvar" text="Salvar" />
             </children>
         </Group>
+        
+        <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#tratarBotaoVoltar" text="Voltar" />
+   
+        
     </children>
 </AnchorPane>
 

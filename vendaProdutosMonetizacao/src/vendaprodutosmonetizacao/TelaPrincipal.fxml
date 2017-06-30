@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="telaPrincipal" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vendaprodutosmonetizacao.PainelFormularioClienteController">
+<!--    <children>
+        <Button layoutX="10" layoutY="10" onAction="#tratarProximaTela" text="Tela Principal" />
+    </children>
+    -->
+    <children>
+        <Button layoutX="100" layoutY="200" onAction="#cadastraCliene" text="Cadastro Clientes" />
+    </children>
+    
+    
+    
+</AnchorPane>

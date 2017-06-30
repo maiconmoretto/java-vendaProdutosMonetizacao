@@ -15,7 +15,6 @@ public class MainCadastro extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("PainelFormularioCliente.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("PainelFormularioProduto.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
