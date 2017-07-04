@@ -34,10 +34,10 @@ public class Produtos {
     
     }
 
-    public void cadastrarProduto(String nome, int valor) throws ClassNotFoundException, SQLException {
+    public void cadastrarProduto(String nome, int valor,int quantidade) throws ClassNotFoundException, SQLException {
 
         Connection conn = Conexao.Conexao();
-        String sql = "INSERT INTO  produtos (nome,valor) VALUES ('" + nome + "', '" + valor + "')";
+        String sql = "INSERT INTO  produtos (nome,valor,quantidade) VALUES ('" + nome + "', '" + valor +  "' , '" + quantidade + "') ";
         Statement statement = conn.createStatement();
         statement.executeUpdate(sql);
     }

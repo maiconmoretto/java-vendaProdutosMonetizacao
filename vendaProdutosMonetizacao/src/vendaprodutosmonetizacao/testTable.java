@@ -1,3 +1,9 @@
+package vendaprodutosmonetizacao;
+
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vendaprodutosmonetizacao.Product;
+import vendaprodutosmonetizacao.model.Produtos;
 
 public class testTable extends Application {
 
+    Produtos produtos = new Produtos();
     Stage window;
     TableView<Product> table;
     TextField nameInput, priceInput, quantityInput;
@@ -58,12 +66,20 @@ public class testTable extends Application {
 
         //Button
         Button addButton = new Button("Add");
-        addButton.setOnAction(e -> addButtonClicked());
+        addButton.setOnAction(e -> {
+            try {
+                addButtonClicked();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(testTable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(testTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         Button deleteButton = new Button("Delete");
         deleteButton.setOnAction(e -> deleteButtonClicked());
 
         HBox hBox = new HBox();
-        hBox.setPadding(new Insets(10,10,10,10));
+        hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setSpacing(10);
         hBox.getChildren().addAll(nameInput, priceInput, quantityInput, addButton, deleteButton);
 
@@ -80,19 +96,28 @@ public class testTable extends Application {
     }
 
     //Add button clicked
-    public void addButtonClicked(){
-        Product product = new Product();
-        product.setName(nameInput.getText());
-        product.setPrice(Double.parseDouble(priceInput.getText()));
-        product.setQuantity(Integer.parseInt(quantityInput.getText()));
-        table.getItems().add(product);
+    public void addButtonClicked() throws ClassNotFoundException, SQLException {
+
+        int valor = Integer.parseInt(priceInput.getText());
+        int quantidade = Integer.parseInt(quantityInput.getText());
+        String nome = nameInput.getText();
+        produtos.cadastrarProduto(nome, valor, quantidade);
         nameInput.clear();
         priceInput.clear();
         quantityInput.clear();
+
+//        Product product = new Product();
+//        product.setName(nameInput.getText());
+//        product.setPrice(Double.parseDouble(priceInput.getText()));
+//        product.setQuantity(Integer.parseInt(quantityInput.getText()));
+//        table.getItems().add(product);
+//        nameInput.clear();
+//        priceInput.clear();
+//        quantityInput.clear();
     }
 
     //Delete button clicked
-    public void deleteButtonClicked(){
+    public void deleteButtonClicked() {
         ObservableList<Product> productSelected, allProducts;
         allProducts = table.getItems();
         productSelected = table.getSelectionModel().getSelectedItems();
@@ -101,7 +126,7 @@ public class testTable extends Application {
     }
 
     //Get all of the products
-    public ObservableList<Product> getProduct(){
+    public ObservableList<Product> getProduct() {
         ObservableList<Product> products = FXCollections.observableArrayList();
         products.add(new Product("Laptop", 859.00, 20));
         products.add(new Product("Bouncy Ball", 2.49, 198));
@@ -110,6 +135,5 @@ public class testTable extends Application {
         products.add(new Product("Corn", 1.49, 856));
         return products;
     }
-
 
 }

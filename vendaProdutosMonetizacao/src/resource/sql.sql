@@ -22,12 +22,17 @@ ALTER TABLE clientes
 
 -- DROP TABLE produtos;
 
+-- Table: produtos
+
+-- DROP TABLE produtos;
+
 CREATE TABLE produtos
 (
   idproduto serial NOT NULL,
   nome text,
-  valor int,
-  data_cadastro timestamp without time zone default now(),
+  valor integer,
+  data_cadastro timestamp without time zone DEFAULT now(),
+  quantidade integer,
   CONSTRAINT idproduto PRIMARY KEY (idproduto)
 )
 WITH (
@@ -35,6 +40,7 @@ WITH (
 );
 ALTER TABLE produtos
   OWNER TO postgres;
+
 
   
 -- Table: cliente_conta
