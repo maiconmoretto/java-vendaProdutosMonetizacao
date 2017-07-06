@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import vendaprodutosmonetizacao.Conexao;
-import vendaprodutosmonetizacao.Produto;
+import trash.Conexao;
+import trash.Produto;
 
 /**
  *

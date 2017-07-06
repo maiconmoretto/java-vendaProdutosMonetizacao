@@ -1,4 +1,4 @@
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import vendaprodutosmonetizacao.Product;
+import trash.Product;
 import vendaprodutosmonetizacao.model.Produtos;
 
 public class testTable extends Application {

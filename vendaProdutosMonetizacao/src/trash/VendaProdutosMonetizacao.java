@@ -1,4 +1,4 @@
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.sql.SQLException;
 import java.util.InputMismatchException;

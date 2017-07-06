@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.scene.control.TextField;
-import vendaprodutosmonetizacao.Conexao;
+import trash.Conexao;
 
 /**
  *
@@ -62,13 +62,14 @@ public class Clientes {
         return true;
     }
 
-    public void cadastrarCliente(TextField textFieldNome, TextField textFieldEmail, TextField textFieldCpf) throws ClassNotFoundException, SQLException {
+
+    public boolean deletarClientePorNome(String nome) throws ClassNotFoundException, SQLException {
 
         Connection conn = Conexao.Conexao();
-        String sql = "INSERT INTO  clientes (nome,email,cpf) VALUES ('" + textFieldNome + "', '" + textFieldEmail + "','" + textFieldCpf + "')";
+        String sql = "DELETE FROM  clientes WHERE nome= '" + nome + "' ";
         Statement statement = conn.createStatement();
         statement.executeUpdate(sql);
-
+        return true;
     }
 
 }

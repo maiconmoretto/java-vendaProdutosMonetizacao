@@ -1,7 +1,7 @@
 /*
 para a conta anota-se o  número e o saldo.
  */
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.util.ArrayList;
 import java.util.List;

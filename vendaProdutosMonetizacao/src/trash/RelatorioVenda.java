@@ -4,7 +4,7 @@
  * clientes que mais compram, clientes que mais realizam operações de
  * monetização
  */
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.util.ArrayList;
 

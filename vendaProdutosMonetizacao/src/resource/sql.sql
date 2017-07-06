@@ -41,8 +41,6 @@ WITH (
 ALTER TABLE produtos
   OWNER TO postgres;
 
-
-  
 -- Table: cliente_conta
 
 -- DROP TABLE cliente_conta;

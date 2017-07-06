@@ -1,4 +1,4 @@
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.net.URL;
 import java.sql.SQLException;

@@ -1,7 +1,7 @@
 /*
 - Cadastro de produtos: produto possui código, nome e preço.
  */
-package vendaprodutosmonetizacao;
+package trash;
 
 /**
  *

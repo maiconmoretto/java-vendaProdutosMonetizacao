@@ -5,7 +5,7 @@
  * debitado da conta do codigoCliente, caso este tenha crédito.
  *
  */
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;

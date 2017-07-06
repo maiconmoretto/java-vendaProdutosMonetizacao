@@ -2,7 +2,7 @@
  Cadastro de clientes: para cada cliente anota-se o CPF, nome e email. 
 
  */
-package vendaprodutosmonetizacao;
+package trash;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
