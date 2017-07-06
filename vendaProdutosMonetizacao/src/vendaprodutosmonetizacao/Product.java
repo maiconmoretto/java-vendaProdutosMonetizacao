@@ -12,7 +12,7 @@ package vendaprodutosmonetizacao;
 public class Product {
 
     private String name;
-    private double price;
+    private int price;
     private int quantity;
 
     public Product(){
@@ -21,10 +21,14 @@ public class Product {
         this.quantity = 0;
     }
 
-    public Product(String name, double price, int quantity){
+    public Product(String name, int price, int quantity){
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    Product(String string, int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getName() {
@@ -39,7 +43,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

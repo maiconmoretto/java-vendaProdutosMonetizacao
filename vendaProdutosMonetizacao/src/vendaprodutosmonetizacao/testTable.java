@@ -1,7 +1,10 @@
 package vendaprodutosmonetizacao;
 
-
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -76,7 +79,15 @@ public class testTable extends Application {
             }
         });
         Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(e -> deleteButtonClicked());
+        deleteButton.setOnAction(e -> {
+            try {
+                deleteButtonClicked();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(testTable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(testTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
@@ -84,6 +95,7 @@ public class testTable extends Application {
         hBox.getChildren().addAll(nameInput, priceInput, quantityInput, addButton, deleteButton);
 
         table = new TableView<>();
+
         table.setItems(getProduct());
         table.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
 
@@ -97,11 +109,16 @@ public class testTable extends Application {
 
     //Add button clicked
     public void addButtonClicked() throws ClassNotFoundException, SQLException {
+        Product product = new Product();
 
         int valor = Integer.parseInt(priceInput.getText());
         int quantidade = Integer.parseInt(quantityInput.getText());
         String nome = nameInput.getText();
         produtos.cadastrarProduto(nome, valor, quantidade);
+        product.setName(nome);
+        product.setPrice(valor);
+        product.setQuantity(quantidade);
+        table.getItems().add(product);
         nameInput.clear();
         priceInput.clear();
         quantityInput.clear();
@@ -117,22 +134,52 @@ public class testTable extends Application {
     }
 
     //Delete button clicked
-    public void deleteButtonClicked() {
+    public void deleteButtonClicked() throws ClassNotFoundException, SQLException {
         ObservableList<Product> productSelected, allProducts;
-        allProducts = table.getItems();
-        productSelected = table.getSelectionModel().getSelectedItems();
-
-        productSelected.forEach(allProducts::remove);
+        Product product = new Product();
+        String nome = nameInput.getText();
+        produtos.deletarProdutoPorNome(nome);
+        product.setName(nome);
+        table.getItems().remove(product);
+        nameInput.clear();
+        priceInput.clear();
+        quantityInput.clear();
+        
+        
+        
+        
+//        allProducts = table.getItems();
+//        productSelected = table.getSelectionModel().getSelectedItems();
+//        productSelected.forEach(allProducts::remove);
     }
 
     //Get all of the products
-    public ObservableList<Product> getProduct() {
+    public ObservableList<Product> getProduct() throws ClassNotFoundException, SQLException {
         ObservableList<Product> products = FXCollections.observableArrayList();
-        products.add(new Product("Laptop", 859.00, 20));
-        products.add(new Product("Bouncy Ball", 2.49, 198));
-        products.add(new Product("Toilet", 99.00, 74));
-        products.add(new Product("The Notebook DVD", 19.99, 12));
-        products.add(new Product("Corn", 1.49, 856));
+
+//        for (List<produtos.list()> : list) {
+//            System.out.println(integer);
+//            qnt += integer;
+//        }
+        Connection connection = Conexao.Conexao();
+
+        String sql = "SELECT * FROM  produtos  ORDER BY idproduto";
+        Statement comando = connection.createStatement();
+        ResultSet resultado = comando.executeQuery(sql);
+
+        while (resultado.next()) {
+            products.add(new Product(resultado.getString("nome"), resultado.getInt("valor"), 10));
+//                System.out.println("\nId: " + resultado.getInt("idproduto"));
+//                System.out.println("Nome: " + resultado.getString("nome"));
+//                System.out.println("valor: " + resultado.getInt("valor"));
+//                System.out.println("data cadastro: " + resultado.getDate("data_cadastro"));
+        }
+        //  produtos.listarProdutos();
+//        products.add(new Product("Laptop", 859.00, 20));
+//        products.add(new Product("Bouncy Ball", 2.49, 198));
+//        products.add(new Product("Toilet", 99.00, 74));
+//        products.add(new Product("The Notebook DVD", 19.99, 12));
+//        products.add(new Product("Corn", 1.49, 856));
         return products;
     }
 
